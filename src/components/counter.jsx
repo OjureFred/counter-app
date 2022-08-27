@@ -8,6 +8,11 @@ class Counter  extends React.Component {
         imageUrl: 'https://picsum.photos/200'
       };
     
+    constructor() {
+        super()
+        this.handleIncrement = this.handleIncrement.bind(this)
+    }
+    
     styles = {
         fontSize: 10,
         fontWeight: 'bold',
@@ -15,18 +20,22 @@ class Counter  extends React.Component {
 
     formatCount(){
         const { count } = this.state;
-        return count === 0 ? <h1>zero</h1> : count;
+        return count === 0 ? <h3>zero</h3> : count;
     }
     render() {
         let classes = this.getBadgeClasses();
         return (
         <div>
             <img src={this.state.imageUrl} alt="" />
+            
             <span style = {this.style} className={ this.getBadgeClasses() }>
-                {this.formatCount()}
+                
             </span>
+            <p>{this.formatCount()}</p>
             <button onClick= {this.handleIncrement} className="btn btn-secondary btn-sm">Increment</button>
             <div>
+            
+
                 {this.state.tags.length === 0 && "Please create a new tag!" }
                 {this.renderTags()}
             </div>
@@ -45,9 +54,8 @@ class Counter  extends React.Component {
         return <ul>{this.state.tags.map( tag => <li key={tag}>{ tag }</li>)}</ul>
     }
 
-    handleIncrement() {
-        console.log('Increment clicked')
-    }
+    handleIncrement = () => {
+        this.setState({ count: this.state.count + 1});
 }
- 
+}
 export default Counter;
