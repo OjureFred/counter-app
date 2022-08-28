@@ -5,6 +5,12 @@ import React, { Component } from 'react';
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = this.props.property;
+    console.log('App - Constructor');
+  }
+
   handleReset = ()=> {
     const counters = this.state.counters.map(c => {
         c.value = 0;
@@ -23,7 +29,15 @@ handleIncrement = counter => {
   const counters = [...this.state.counters];
   const index = counters.indexOf(counter);
   counters[index] = {...counter};
-  counters[0].value ++;
+  counters[0].value++;
+  this.setState({ counters })
+};
+
+handleDecrement = counter => {
+  const counters = [...this.state.counters];
+  const index = counters.indexOf(counter);
+  counters[index] = {...counter};
+  counters[0].value--;
   this.setState({ counters })
 };
 
@@ -37,6 +51,7 @@ handleIncrement = counter => {
         <Counters
           onReset = {this.handleReset}
           onIncrement = {this.handleIncrement}
+          OnDecrement = {this.handleDecrement}
           onDelete = {this.handleDelete} 
         />
       </main>
